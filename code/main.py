@@ -3,7 +3,8 @@ from settings import *
 from level import Level
 
 class Game:
-    def __init__(self):
+    def __init__(self): 
+        
         window_title = 'Hi Ro :P'
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
