@@ -9,7 +9,7 @@ class Level:
 
         self.display_surface = pygame.display.get_surface()
         
-        self.visible_sprites = pygame.sprite.Group()
+        self.visible_sprites = YSortCameraGroup()
         self.obstacle_sprites = pygame.sprite.Group()
 
         self.create_map()
@@ -23,7 +23,7 @@ class Level:
                 if col == 'x':
                     Tile((x, y), [self.visible_sprites, self.obstacle_sprites])
                 if col == 'p':
-                    self.player = Player((x, y), [self.visible_sprites])
+                    self.player = Player((x, y), [self.visible_sprites], self.obstacle_sprites)
 
     # create_map()
     def run(self):
@@ -31,3 +31,10 @@ class Level:
         self.visible_sprites.update()
         debug(self.player.direction)
     # run()
+
+
+class YSortCameraGroup(pygame.sprite.Group): 
+    def __init__(self):
+        super().__init__()
+
+# YSortCameraGroup()
