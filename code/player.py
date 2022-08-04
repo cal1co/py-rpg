@@ -9,35 +9,45 @@ class Player(pygame.sprite.Sprite):
         self.hitbox = self.rect.inflate(0,-26)
 
         self.direction = pygame.math.Vector2()
-        self.speed = 10
+        self.speed = 5
 
         self.obstacle_sprites = obstacle_sprites
     # init()
 
     def input(self):
         keys = pygame.key.get_pressed() 
-        if keys[pygame.K_w]:
+        print(keys[pygame.K_w])
+        if keys[pygame.K_w] or keys[pygame.K_UP]:
             self.direction.y = -1
-        elif keys[pygame.K_s]:
+            # print("up")
+        elif keys[pygame.K_s] or keys[pygame.K_DOWN]:
             self.direction.y = 1
+            print("down")
         else: 
             self.direction.y = 0
 
-        if keys[pygame.K_a]:
-            self.direction.x = -1
-        elif keys[pygame.K_d]:
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             self.direction.x = 1
+            print("right")
+        elif keys[pygame.K_a] or keys[pygame.K_LEFT]:
+            self.direction.x = -1
+            print("left")
         else: 
             self.direction.x = 0
+
+        if keys[pygame.K_SPACE]:
+            print('attack')
+        if keys[pygame.K_LSHIFT]:
+            print('magic')
     # input()
 
     def move(self, speed):
         if self.direction.magnitude() != 0:
             self.direction = self.direction.normalize()
 
-        self.hitbox.x += (self.direction.x * speed)
+        self.hitbox.x += self.direction.x * speed
         self.collision('horizontal')
-        self.hitbox.y += (self.direction.y * speed)
+        self.hitbox.y += self.direction.y * speed
         self.collision('vertical')
         self.rect.center = self.hitbox.center 
     # move()

@@ -18,7 +18,6 @@ def import_folder(path):
         # natsorted(img_files)
         for image in natsorted(img_files):
             full_path = f"{path}/{image}"
-            print(image)
             image_surf = pygame.image.load(full_path).convert_alpha()
             surface_list.append(image_surf)
     return surface_list

@@ -24,6 +24,7 @@ class Game:
                 self.level.run()
                 pygame.display.update()
                 self.clock.tick(FPS)
+            
     # run()
 # Game:
 if __name__ == '__main__': # check if main file
