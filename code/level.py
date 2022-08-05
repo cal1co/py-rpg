@@ -5,18 +5,18 @@ from player import Player
 from debug import debug
 from support import import_csv_layout, import_folder
 from random import choice
+from weapon import Weapon
 
 class Level:
     def __init__(self):
-
         self.display_surface = pygame.display.get_surface()
         
         self.visible_sprites = YSortCameraGroup()
         self.obstacle_sprites = pygame.sprite.Group()
 
         self.create_map()
-
     # __init__()
+
     def create_map(self):
         layouts = {
             'boundary': import_csv_layout('../map/map_FloorBlocks.csv'),
@@ -44,8 +44,12 @@ class Level:
                             surf = graphics['objects'][int(col)]
                             Tile((x, y), [self.visible_sprites, self.obstacle_sprites], 'object', surf)
 
-        self.player = Player((2000, 1430), [self.visible_sprites], self.obstacle_sprites)
+        self.player = Player((2000, 1430), [self.visible_sprites], self.obstacle_sprites, self.create_attack)
     # create_map()
+
+    def create_attack(self):
+        Weapon(self.player, [self.visible_sprites])
+
     def run(self):
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
