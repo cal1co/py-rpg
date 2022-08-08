@@ -34,9 +34,11 @@ class Player(Entity):
         self.magic_switch_time = None 
 
         self.stats = {'health': 100, 'energy':60, 'attack':10, 'magic':4, 'speed':5}
+        self.max_stats = {'health': 300, 'energy': 150, 'attack': 35, 'magic':10, 'speed':12}
+        self.upgrade_cost = {'health': 100, 'energy': 100, 'attack': 100, 'magic':100, 'speed':100}
         self.health = self.stats['health'] 
         self.energy = self.stats['energy'] 
-        self.exp = 123
+        self.exp = 50000
         self.speed = self.stats['speed']
 
         self.vulnerable = True
@@ -188,6 +190,15 @@ class Player(Entity):
         base_damage = self.stats['magic']
         spell_damage = magic_data[self.magic]['strength']
         return base_damage + spell_damage
+    # get_full_magic_damage()
+    
+    def get_value_by_index(self, index):
+        return list(self.stats.values())[index]
+    # get_value_by_index()
+    
+    def get_cost_by_index(self, index):
+        return list(self.upgrade_cost.values())[index]
+    # get_cost_by_index()
 
     def energy_recovery(self):
         if self.energy < self.stats['energy']:
@@ -201,7 +212,7 @@ class Player(Entity):
         self.cooldowns()
         self.get_status()
         self.animate()
-        self.move(self.speed)
+        self.move(self.stats['speed'])
         self.energy_recovery()
     # update
 
