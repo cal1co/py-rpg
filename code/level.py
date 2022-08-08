@@ -6,6 +6,7 @@ from debug import debug
 from support import import_csv_layout, import_folder
 from random import choice
 from weapon import Weapon
+from ui import UI
 
 class Level:
     def __init__(self):
@@ -17,6 +18,8 @@ class Level:
         self.current_attack = None
 
         self.create_map()
+
+        self.ui = UI()
     # __init__()
 
     def create_map(self):
@@ -59,11 +62,11 @@ class Level:
         self.current_attack = None 
     # destroy_attack()
 
-
     def run(self):
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
-        debug(self.player.status)
+        self.ui.display(self.player) 
+        # debug(self.player.status)
     # run()
 # Level
 
@@ -78,7 +81,6 @@ class YSortCameraGroup(pygame.sprite.Group):
 
         self.floor_surf = pygame.image.load('../graphics/tilemap/ground.png').convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0,0))
-
     # __init__()
 
     def custom_draw(self, player):
@@ -92,5 +94,4 @@ class YSortCameraGroup(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
     # custom_draw()
-
 # YSortCameraGroup
